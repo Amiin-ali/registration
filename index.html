@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>registration form</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center h-screen bg-gray-100">
+    <div class=" p-6 rounded-lg shadow-lg w-96 border border-white rounded-lg">
+        <h2 class="text-2xl font-bold mb-4 text-center text-[#AA54A0]">Buuxi Formkaan</h2>
+        <form id="whatsappForm ">
+            <label class="block mb-2 text-black font-bold">Full Name:</label>
+            <input type="text" id="name" class="w-full p-2 border border-gray-300 rounded mb-4" placeholder="Magacaga oo dhamaystiran" required>
+            <label class="block mb-2 text-black font-bold">WhatsApp Number:</label>
+            <input type="tel" id="phone" class="w-full p-2 border border-gray-300 rounded mb-4" placeholder="tusaale: +252619013379" required>
+            <button type="submit" class="w-full bg-[#AA54A0] text-white py-2 rounded text-xl">Register</button>
+        </form>
+        <p id="responseMsg" class="mt-4 text-green-600 hidden">Waa lagu diiwaan galiyay</p>
+    </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $("#whatsappForm").submit(function(event){
+                event.preventDefault();
+                let fullName = $("#name").val();
+                let phoneNumber = $("#phone").val();
+                
+                var settings = {
+                    "url": "https://api.ultramsg.com/instance106238/messages/chat",
+                    "method": "POST",
+                    "timeout": 0,
+                    "headers": {
+                        "Content-Type": "application/json"
+                    },
+                    "data": JSON.stringify({
+                        "token": "pchoujhqv92k915n",
+                        "to": phoneNumber,
+                        "body": fullName + ", waad ku mahadsantahay madama aad iska diiwaan galisay qalin codes fadlan booqo qalin-codes-vy4n.vercel.app "
+                    }),
+                };
+    
+                $.ajax(settings).done(function (response) {
+                    console.log(response);
+                    $("#responseMsg").removeClass("hidden");
+                });
+            });
+        });
+    </script>
+    
+</body>
+</html>
